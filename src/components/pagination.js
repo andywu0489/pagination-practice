@@ -6,8 +6,9 @@ export default function Pagination () {
     const [number, setNumber] = useState(currentPage)
     const [numPerPage, settNumPerPage] = useState(5)
     const [orderByValue, setOrderByValue] = useState('accending')
+    const [filterValue, setFilterValue] = useState('none')
 
-    const arr = []
+    let arr = []
 
     for (let i = 1; i <= 100; i++) {
         arr.push(i)
@@ -21,6 +22,16 @@ export default function Pagination () {
         arr.sort((a, b) => {
             return b - a
          })
+    }
+
+    if (filterValue === 'even') {
+         arr = arr.filter(num => {
+           return num % 2 === 0
+        })
+    } else if (filterValue === 'odd') {
+        arr = arr.filter(num => {
+           return num % 2 !== 0
+        })
     }
 
     const splicedArr = []
@@ -68,6 +79,12 @@ export default function Pagination () {
         setNumber(1)
     }
 
+    const handleFilterValueChange = (e) => {
+        setFilterValue(e.target.value)
+        setCurrentPage(1)
+        setNumber(1)
+    }
+
     return(
         <div className='pagination__container'>
             <div className='pagination__settings'>
@@ -82,6 +99,13 @@ export default function Pagination () {
                 <select onChange={handleOrderByChange} value={orderByValue}>
                     <option value='accending'>Accending</option>
                     <option value='decending'>Decending</option>
+                </select>
+            </span>
+            <span>{'Filter By: '}
+                <select onChange={handleFilterValueChange} value={filterValue}>
+                <option value='none'>---</option>
+                    <option value='even'>Even</option>
+                    <option value='odd'>Odd</option>
                 </select>
             </span>
             </div>
