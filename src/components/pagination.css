@@ -1,0 +1,41 @@
+.pagination__container {
+    display: flex;
+    flex-direction: column;
+}
+
+.pagination__settings {
+    display: flex;
+    justify-content: space-around;
+}
+
+.pagination__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pagination__list-item,
+.pagination__controls {
+    display: flex;
+    justify-content: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.pagination__page-input {
+    width: 2em;
+    text-align: center;
+}
+
+.pagination__decrement-button,
+.pagination__increment-button {
+    margin: 0 20px
+}
