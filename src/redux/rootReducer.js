@@ -1,10 +1,10 @@
 import {
     combineReducers
 } from 'redux'
-import counterReducer from './counter/counterReducer.js'
+import itemReducer from './item/itemReducer.js'
 
 const rootReducer = combineReducers({
-    count: counterReducer
+    items: itemReducer
 })
 
 export default rootReducer

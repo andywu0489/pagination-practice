@@ -1,14 +1,15 @@
 // import Form from './components/form'
 import './App.css';
 import Pagination from './components/pagination'
-import Counter from './components/counter'
+import ItemForm from './components/item'
 
 function App() {
   return (
     <div>
-    {/* <Form/> */}
+    <ItemForm/>
     <Pagination/>
-    {/* <Counter/> */}
+    
+    
     </div>
   );
 }

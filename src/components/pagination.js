@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./pagination.css";
 import _ from "lodash";
+import {useSelector} from 'react-redux'
 
 export default function Pagination() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -8,6 +9,10 @@ export default function Pagination() {
   const [numPerPage, settNumPerPage] = useState(25);
   const [orderByValue, setOrderByValue] = useState("accending");
   const [filterValue, setFilterValue] = useState("none");
+
+  const items = useSelector(state => state.items.items)
+
+  console.log('items', items)
 
   let arr = [];
 
