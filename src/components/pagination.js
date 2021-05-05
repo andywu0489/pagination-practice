@@ -11,9 +11,9 @@ export default function Pagination() {
 
   let arr = [];
 
-  for (let i = 1; i <= 1000000; i++) {
-    arr.push(i);
-  }
+    for (let i = 1; i <= 1000000; i++) {
+      arr.push(i);
+    }
 
   if (orderByValue === "accending") {
     arr.sort((a, b) => {
@@ -35,9 +35,9 @@ export default function Pagination() {
     });
   }
 
-  const splicedArr = _.chunk(arr, numPerPage);
+  const chunkedArr = _.chunk(arr, numPerPage);
 
-  const currentPageArray = splicedArr[currentPage - 1];
+  const currentPageArray = chunkedArr[currentPage - 1];
 
   const decrement = () => {
     if (currentPage > 1) {
@@ -47,14 +47,14 @@ export default function Pagination() {
   };
 
   const increment = () => {
-    if (currentPage < splicedArr.length) {
+    if (currentPage < chunkedArr.length) {
       setCurrentPage(currentPage + 1);
       setNumber(currentPage + 1);
     }
   };
 
   const handleOnKeyDown = (e) => {
-    if (e.key === "Enter" && number <= splicedArr.length && number > 0) {
+    if (e.key === "Enter" && number <= chunkedArr.length && number > 0) {
       setCurrentPage(number);
       setNumber(number);
     }
@@ -110,14 +110,19 @@ export default function Pagination() {
         </span>
       </div>
       <div className="pagination__list">
-        {currentPageArray &&
+        {currentPageArray && currentPageArray.length > 0 ? (
           currentPageArray.map((number) => {
             return (
               <p className="pagination__list-item" key={number}>
                 {number}
               </p>
             );
-          })}
+          })
+        ) : (
+          <p className="pagination__list-item">
+            Nothing to see here
+          </p>
+        )}
       </div>
       <div className="pagination__controls">
         <button className="pagination__decrement-button" onClick={decrement}>
@@ -132,7 +137,7 @@ export default function Pagination() {
             onKeyDown={handleOnKeyDown}
             onChange={handleChange}
           ></input>
-          {`/${splicedArr.length}`}
+          {`/${chunkedArr.length > 0 ? chunkedArr.length : 1}`}
         </span>
         <button className="pagination__increment-button" onClick={increment}>
           +
