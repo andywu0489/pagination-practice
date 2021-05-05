@@ -22,9 +22,8 @@
 .pagination__controls {
     display: flex;
     justify-content: center;
+    margin: 20px;
 }
-
-
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
