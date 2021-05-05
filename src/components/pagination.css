@@ -14,11 +14,17 @@
     justify-content: center;
 }
 
-.pagination__list-item,
+.pagination__list-item {
+    display: flex;
+    justify-content: space-around;
+}
+
 .pagination__controls {
     display: flex;
     justify-content: center;
 }
+
+
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

@@ -1,34 +1,23 @@
 import {
-    INCREMENT_COUNT,
-    DECREMENT_COUNT,
     ADD_ITEM
 } from './itemTypes'
 
+import testData from '../../testData'
+
 const initialState = {
-    // count: 1,
-    items: []
+    items: [...testData]
 }
 
 const itemReducer = (state = initialState, action) => {
     switch (action.type) {
-        case INCREMENT_COUNT:
+        case ADD_ITEM:
             return {
                 ...state,
-                count: state.count + action.payload
+                items: [...state.items, action.payload]
             }
-            case DECREMENT_COUNT:
-                return {
-                    ...state,
-                    count: state.count - action.payload
-                }
-                case ADD_ITEM:
-                    return {
-                        ...state,
-                        items: [...state.items, action.payload]
-                    }
 
-                    default:
-                        return state
+            default:
+                return state
     }
 }
 

@@ -7,40 +7,39 @@ export default function Pagination() {
   const [currentPage, setCurrentPage] = useState(1);
   const [number, setNumber] = useState(currentPage);
   const [numPerPage, settNumPerPage] = useState(25);
-  const [orderByValue, setOrderByValue] = useState("accending");
+  const [orderByValue, setOrderByValue] = useState("newest");
   const [filterValue, setFilterValue] = useState("none");
 
-  const items = useSelector(state => state.items.items)
+  let items = useSelector(state => state.items.items)
 
-  console.log('items', items)
-
-  let arr = [];
-
-    for (let i = 1; i <= 1000000; i++) {
-      arr.push(i);
-    }
-
-  if (orderByValue === "accending") {
-    arr.sort((a, b) => {
-      return a - b;
+  //order by
+  if (orderByValue === "newest") {
+    items.sort((a, b) => {
+      return b.createdAt - a.createdAt;
     });
-  } else if (orderByValue === "decending") {
-    arr.sort((a, b) => {
-      return b - a;
+  } else if (orderByValue === "oldest") {
+    items.sort((a, b) => {
+      return a.createdAt - b.createdAt;
     });
-  }
-
-  if (filterValue === "even") {
-    arr = arr.filter((num) => {
-      return num % 2 === 0;
+  } else if (orderByValue === "priceDecending") {
+    items.sort((a, b) => {
+      return b.price - a.price;
     });
-  } else if (filterValue === "odd") {
-    arr = arr.filter((num) => {
-      return num % 2 !== 0;
+  } else if (orderByValue === "priceAccending") {
+    items.sort((a, b) => {
+      return a.price - b.price;
     });
   }
 
-  const chunkedArr = _.chunk(arr, numPerPage);
+
+  //filter by brand
+  if (filterValue && filterValue !== 'none') {
+    items = items.filter((item) => {
+      return item.brand === filterValue;
+    });
+  }
+
+  const chunkedArr = _.chunk(items, numPerPage);
 
   const currentPageArray = chunkedArr[currentPage - 1];
 
@@ -101,26 +100,34 @@ export default function Pagination() {
         <span>
           {"Order By: "}
           <select onChange={handleOrderByChange} value={orderByValue}>
-            <option value="accending">Accending</option>
-            <option value="decending">Decending</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="priceAccending">Price: Low to high</option>
+            <option value="priceDecending">Price: High to low</option>
           </select>
         </span>
         <span>
-          {"Filter By: "}
+          {"Filter By Brand: "}
           <select onChange={handleFilterValueChange} value={filterValue}>
             <option value="none">---</option>
-            <option value="even">Even</option>
-            <option value="odd">Odd</option>
+            <option value="Honda">Honda</option>
+            <option value="Toyota">Toyota</option>
+            <option value="Tesla">Tesla</option>
+            <option value="Subaru">Subaru</option>
+            <option value="Hyundai">Hyundai</option>
           </select>
         </span>
       </div>
       <div className="pagination__list">
         {currentPageArray && currentPageArray.length > 0 ? (
-          currentPageArray.map((number) => {
+          currentPageArray.map((item) => {
             return (
-              <p className="pagination__list-item" key={number}>
-                {number}
-              </p>
+              <div className="pagination__list-item" key={item.createdAt}>
+                <p>Name: {item.name}</p>
+                <p>Brand: {item.brand}</p>
+                <p>Description: {item.description}</p>
+                <p>Price: ${item.price}</p>
+              </div>
             );
           })
         ) : (

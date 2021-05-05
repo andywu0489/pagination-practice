@@ -32,7 +32,7 @@ const [item, setItem] = useState({
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    item.createdAt = new Date()
+    item.createdAt = Date.now()
     dispatch(addItem(item))
     setItem({...initialItemState})
   }

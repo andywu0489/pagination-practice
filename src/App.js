@@ -1,4 +1,3 @@
-// import Form from './components/form'
 import './App.css';
 import Pagination from './components/pagination'
 import ItemForm from './components/item'
@@ -8,8 +7,6 @@ function App() {
     <div>
     <ItemForm/>
     <Pagination/>
-    
-    
     </div>
   );
 }

@@ -29,7 +29,6 @@ const checkLength = () => {
 const handleSubmit = (e) => {
   e.preventDefault()
     checkLength()
-  console.log(form)
 }
 
   return (
