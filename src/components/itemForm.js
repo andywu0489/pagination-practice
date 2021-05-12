@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import './itemForm.css'
 import {
   addItem
@@ -19,7 +19,7 @@ const [item, setItem] = useState({
   const handleChange = (e) => {
     setItem({
       ...item,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value.trimStart()
     })
   }
 
@@ -41,16 +41,16 @@ const [item, setItem] = useState({
   return (
       <form className='item-form' onSubmit={handleSubmit}>
         <label>{'Name: '} 
-        <input name="name" value={item.name} onChange={handleChange}></input>
+        <input name="name" required value={item.name} onChange={handleChange}></input>
         </label>
         <label>{'Brand: '} 
-        <input name="brand" value={item.brand} onChange={handleChange}></input>
+        <input name="brand" required value={item.brand} onChange={handleChange}></input>
         </label>
         <label>{'Description: '}
-        <input name="description" value={item.description} onChange={handleChange}></input>
+        <input name="description" required value={item.description} onChange={handleChange}></input>
         </label>
         <label>{'Price: $'}
-        <input type='number' name="price" value={item.price} onChange={handleChange}></input>
+        <input type='number' name="price" required value={item.price} onChange={handleChange}></input>
         </label>
         <button>Submit</button>
       </form>
